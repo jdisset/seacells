@@ -9,8 +9,15 @@ Here are a few captures of some of the resulting organisms.
 
 Click on the image to access the videos:
 
-## No novelty, survival only
+## Simple novelty (Nm0)
+[![Surv Only](https://raw.githubusercontent.com/jdisset/seacells/master/images/novsurv5.jpg)](https://vimeo.com/157664099)
 
-![Surv Only](https://github.com/jdisset/images/yaktocat.png)
+[!Same organism without ground view](https://vimeo.com/157666837)
+## Multi novelty (Nm1)
+![Surv Only](https://raw.githubusercontent.com/jdisset/seacells/master/images/multinov.jpg)(https://vimeo.com/157664106)
+## Capture novelty (Nm2)
+[![Surv Only](https://raw.githubusercontent.com/jdisset/seacells/master/images/novcapture.jpg)](https://vimeo.com/157666811)
+## No novelty, survival only (local optima toward which 70% of the runs converged )
+![Surv Only](https://raw.githubusercontent.com/jdisset/seacells/master/images/survonly.jpg)
 
 
