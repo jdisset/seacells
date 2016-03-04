@@ -1,5 +1,6 @@
 #Evolved Development Strategies of Artificial Multicellular Organisms
-Light is present in the water, nutrients are in the ground, cells need to keep both their levels of light and nutrients above 0. They can share these 2 forms of energy. 
+This repository contains the code and some of the results of an artificial life experiment in which cells must survive as long as possible in a demanding environment.
+Light is present in the water, nutrients are in the ground, cells need to keep both their levels of light and nutrients above zero, they can absorb light and nutrients when exposed to them and can share these two forms of energy. 
 
 Organisms are evolved using a standard GA (https://github.com/jdisset/gaga). Simulations start with one single cell, its dna is an artificial gene regulatory network (https://github.com/jdisset/grgen). World and cells physics are simulated using a custom cellular physics model (https://github.com/jdisset/MecaCell).
 
