@@ -26,7 +26,7 @@ int launchGA(GA&& evo, const std::string& evaluatorName, int argc, char** argv) 
 		std::cerr << "No valid evaluator found, aborting." << std::endl;
 		return 1;
 	}
-	evo.setVerbosity(3);
+	evo.setVerbosity(2);
 	evo.setPopSize(200);
 	evo.setMutationProba(0.9);
 	evo.initPopulation(
