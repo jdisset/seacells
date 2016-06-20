@@ -1,0 +1,3 @@
+[submodule "code/src/external/grgen"]
+	path = code/src/external/grgen
+	url = git@github.com:jdisset/grgen.git
