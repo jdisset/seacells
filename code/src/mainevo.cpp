@@ -57,11 +57,9 @@ int main(int argc, char** argv) {
 
 	if (grnType == "grn") {
 		GAGA::GA<C> evo(argc, argv);
-		evo.setSaveFolder("../evos/grn/");
 		launchGA<Scenario<PC<C>>>(evo, evaluatorName, argc, argv);
 	} else if (grnType == "mgrn") {
 		GAGA::GA<GRNPlantController<MGRN<MGClassic>>> evo(argc, argv);
-		evo.setSaveFolder("../evos/mgrn/");
 		launchGA<Scenario<PC<MC>>>(evo, evaluatorName, argc, argv);
 	} else {
 		std::cerr << "No valid grn type found, aborting." << std::endl;
