@@ -86,7 +86,7 @@ template <typename GRN> struct GRNViewer : public GrnUpdater {
 		if (renderer->getSelectedCell() != selected) {
 			selected = renderer->getSelectedCell();
 			if (selected)
-				std::cerr << renderer->getSelectedCell()->ctrl.grn.toJSON() << std::endl;
+				std::cerr << renderer->getSelectedCell()->ctrl.grn.serialize() << std::endl;
 		}
 		if (selected) {
 			grn = renderer->getSelectedCell()->ctrl.grn;

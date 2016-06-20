@@ -38,7 +38,7 @@ template <typename GRN> struct GRNPlantController {
 		auto r = grn.getProteinConcentration(output, ProteinType::output);
 		return r;
 	}
-	std::string toJSON() const { return grn.toJSON(); }
+	std::string serialize() const { return grn.serialize(); }
 
 	static GRNPlantController random(int, char **) {
 		// inputs
