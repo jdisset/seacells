@@ -1,9 +1,9 @@
 #ifndef PLANTCONTROLLER_HPP
 #define PLANTCONTROLLER_HPP
-#include <string>
 #include <sstream>
-#include "config.hpp"
+#include <string>
 #include "../external/grgen/common.h"
+#include "config.hpp"
 
 template <typename GRN> struct GRNPlantController {
 	static constexpr unsigned int nbMorphogens = Config::NB_MORPHOGENS;
