@@ -31,17 +31,16 @@ int launchGA(GA&& evo, const std::string& evaluatorName, const std::string& jobI
 	evo.setSaveFolder(std::string("evo_") + jobId + std::string("/"));
 	evo.setVerbosity(1);
 	evo.setPopSize(200);
-	evo.setMutationProba(0.9);
+	evo.setMutationProba(0.8);
 	evo.setPopSaveInterval(100);
 	evo.setGenSaveInterval(10);
 	evo.setSaveIndStats(true);
 	evo.setSaveGenStats(true);
 	evo.initPopulation(
 	    []() { return std::remove_reference<GA>::type::DNA_t::random(0, nullptr); });
-	// evo.setCrossoverProba(0.3);
-	evo.setCrossoverProba(0.0);
+	evo.setCrossoverProba(0.3);
 	evo.setNbSavedElites(3);
-	evo.step(400);
+	evo.step(700);
 	return 0;
 }
 
