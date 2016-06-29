@@ -274,7 +274,6 @@ class Nutrients {
 			shader.setUniformValue(shader.uniformLocation("normalMatrix"), nmatrix);
 			auto hsv = QColor::fromHsvF(c * 0.35, 0.9, 0.9);
 			QVector4D col(hsv.redF(), hsv.greenF(), hsv.blueF(), 0.5);
-			std::cerr << "c = " << c << ", r = " << col.x() << std::endl;
 			shader.setUniformValue(shader.uniformLocation("color"), col);
 			GL->glDrawElements(GL_TRIANGLES, sphere.indices.size(), GL_UNSIGNED_INT, 0);
 		}

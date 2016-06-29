@@ -1,14 +1,14 @@
 #ifndef SCENARIO_HPP
 #define SCENARIO_HPP
 
-#include "../external/cxxopts.hpp"
-#include "typesconfig.hpp"
-#include "config.hpp"
 #include <mecacell/mecacell.h>
-#include <mecacell/grid.hpp>
 #include <chrono>
+#include <mecacell/grid.hpp>
 #include <sstream>
 #include <string>
+#include "../external/cxxopts.hpp"
+#include "config.hpp"
+#include "typesconfig.hpp"
 
 template <typename Cell> class Scenario {
 	struct PosIntegrator {
@@ -61,30 +61,22 @@ template <typename Cell> class Scenario {
 
 	void init(int argc, char** argv) {
 		start = std::chrono::system_clock::now();
-		try {
-			cxxopts::Options options(argv[0]);
-			options.add_options()("duration", "simulation duration",
-			                      cxxopts::value<double>(simDuration));
-			options.add_options()("maxcell", "max number of cells",
-			                      cxxopts::value<unsigned int>(maxCells));
-			options.add_options()("r,random", "random grn as stem cell");
-			options.add_options()("f,file", "stem cell dna from file",
-			                      cxxopts::value<std::string>());
-			options.parse(argc, argv);
-			if (options.count("random")) {
-				stemCell = unique_ptr<Cell>(new Cell(CtrlType::random(argc, argv)));
-			} else if (options.count("file")) {
-				std::ifstream fstr(options["file"].as<std::string>());
-				std::stringstream buffer;
-				buffer << fstr.rdbuf();
-				stemCell = unique_ptr<Cell>(new Cell(CtrlType(buffer.str())));
-			}
-		} catch (const cxxopts::OptionException& e) {
-			std::cout << "error parsing options: " << e.what() << std::endl;
-			exit(1);
-		} catch (const std::bad_cast& e) {
-			std::cout << "bad cast: " << e.what() << std::endl;
-			exit(1);
+		cxxopts::Options options(argv[0]);
+		options.add_options()("duration", "simulation duration",
+		                      cxxopts::value<double>(simDuration));
+		options.add_options()("maxcell", "max number of cells",
+		                      cxxopts::value<unsigned int>(maxCells));
+		options.add_options()("r,random", "random grn as stem cell");
+		options.add_options()("f,file", "stem cell dna from file",
+		                      cxxopts::value<std::string>());
+		options.parse(argc, argv);
+		if (options.count("random")) {
+			stemCell = unique_ptr<Cell>(new Cell(CtrlType::random(argc, argv)));
+		} else if (options.count("file")) {
+			std::ifstream fstr(options["file"].as<std::string>());
+			std::stringstream buffer;
+			buffer << fstr.rdbuf();
+			stemCell = unique_ptr<Cell>(new Cell(CtrlType(buffer.str())));
 		}
 		w.setDt(Config::SIM_DT);
 		if (stemCell) {
