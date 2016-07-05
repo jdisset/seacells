@@ -21,7 +21,7 @@ struct Config {
 	// evo
 	static constexpr unsigned int INITIAL_NB_REGULS = 1;
 	static constexpr double DEFAULT_SIM_DURATION = 500.0;
-	static constexpr double DEFAULT_MAX_CELLS = 5000;
+	static constexpr double DEFAULT_MAX_CELLS = 500;
 
 	// cells caracs
 	static constexpr double CELL_GROWTH_SPEED = 0.35;
