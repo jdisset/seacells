@@ -58,8 +58,10 @@ template <typename Cell> class Scenario {
 	double plantEnergy = 0.0;
 	unsigned int getMaxUpdates() { return simDuration / w.getDt(); }
 	void setStemCell(Cell* c) { stemCell = unique_ptr<Cell>(c); }
+	std::mt19937 internalRand;
 
 	void init(int argc, char** argv) {
+		internalRand = std::mt19937(randomSeed);
 		start = std::chrono::system_clock::now();
 		cxxopts::Options options(argv[0]);
 		options.add_options()("duration", "simulation duration",
@@ -139,6 +141,33 @@ template <typename Cell> class Scenario {
 		return -dt * (static_cast<double>(Config::NUTRIENTS_DIFFUSION_K) * area * deltaP) /
 		       std::max(1.0, (static_cast<double>(Config::NUTRIENTS_VISCOSITY) *
 		                      std::max(1.0, l)));
+	}
+
+	void windOn(const MecaCell::Vector3D& windDirection, double intensity) {
+		const double resolution = MecaCell::DEFAULT_CELL_RADIUS;
+		MecaCell::Vector3D xDir = windDirection.ortho().normalized();
+		MecaCell::Vector3D zDir = windDirection.ortho(xDir).normalized();
+
+		unordered_map<std::pair<int, int>, Cell*> buffer;
+		for (auto& c : w.cells) {
+			const auto& cpos = c->getPosition();
+			auto ypos = cpos.dot(windDirection);
+			std::pair<int, int> cellBottomLeft = {
+			    floor((c->getPosition().dot(xDir) - c->getBoundingBoxRadius()) / resolution),
+			    floor((c->getPosition().dot(zDir) - c->getBoundingBoxRadius()) / resolution)};
+			std::pair<int, int> cellUpRight = {
+			    ceil((c->getPosition().dot(xDir) + c->getBoundingBoxRadius()) / resolution),
+			    ceil((c->getPosition().dot(zDir) + c->getBoundingBoxRadius()) / resolution)};
+			for (int x = cellBottomLeft.first; x < cellUpRight.first; ++x) {
+				for (int z = cellBottomLeft.second; z < cellUpRight.second; ++z) {
+					std::pair<int, int> xz(x, z);
+					if (ypos > Config::EPSILON_GROUND &&
+					    (!buffer.count(xz) || buffer[xz]->getPosition().dot(windDirection) < ypos))
+						buffer[xz] = c;
+				}
+			}
+		}
+		for (auto& c : buffer) c.second->receiveExternalForce(windDirection * intensity);
 	}
 
 	void shineOn() {
@@ -329,9 +358,13 @@ template <typename Cell> class Scenario {
 	}
 
 	void loop() {
+		double WIND = 4.0;
+		std::normal_distribution<double> windIntensity(WIND, WIND * 0.3);
+		MecaCell::Vector3D mainWindDirection(1, 0, 0);
 		simTime += Config::SIM_DT;
 		updateCellsSensedNutrients();
 		shineOn();
+		windOn(mainWindDirection.deltaDirection(0.2), windIntensity(internalRand));
 		diffuseNutrients();
 		std::vector<std::array<std::pair<MecaCell::Vec, double>, Config::NB_MORPHOGENS>>
 		    morphogens;
