@@ -3,6 +3,7 @@
 #include <array>
 #define WATER 0
 #define LIGHT 1
+
 struct Config {
 	// init
 	static constexpr double EPSILON_GROUND = 50.0;
@@ -21,7 +22,7 @@ struct Config {
 	// evo
 	static constexpr unsigned int INITIAL_NB_REGULS = 1;
 	static constexpr double DEFAULT_SIM_DURATION = 500.0;
-	static constexpr double DEFAULT_MAX_CELLS = 100;
+	static constexpr double DEFAULT_MAX_CELLS = 420;
 
 	// cells caracs
 	static constexpr double CELL_GROWTH_SPEED = 0.35;
@@ -38,17 +39,17 @@ struct Config {
 
 	// Nutrients
 	static constexpr unsigned int NB_NUTRIENTS = 2;
-	static constexpr unsigned int NB_NUTRIENTS_SOURCES = 180;
+	static constexpr unsigned int NB_NUTRIENTS_SOURCES = 185;
 	static constexpr double NUTRIENTS_BOUNDING_AREA = 1700.0;
 	static constexpr double NUTRIENTS_BOUNDING_DEPTH = 1000.0;
 	static constexpr double TYPICAL_NUTRIENTS_RADIUS = 240.0;
 	static constexpr double NUTRIENTS_VISCOSITY = 1.0;
-	static constexpr double NUTRIENTS_DIFFUSION_K = 0.04;
-	static constexpr double NUTRIENT_QUANTITY = 0.033;
-	static constexpr double NUTRIENT_DEPTH_INCREASE_COEF = 0.037;
-	static constexpr double NUTRIENT_DEPTH_INCREASE_POW = 1.5;
+	static constexpr double NUTRIENTS_DIFFUSION_K = 0.045;
+	static constexpr double NUTRIENT_QUANTITY = 0.035;
+	static constexpr double NUTRIENT_DEPTH_INCREASE_COEF = 0.033;
+	static constexpr double NUTRIENT_DEPTH_INCREASE_POW = 1.45;
 	static constexpr double FIRST_NUTRIENT_SOURCE_THRESHOLD = 100.0;
-	static constexpr double SUN_INTENSITY = 1.0;
-	static constexpr double MAX_LIGHT_THRESHOLD = 400.0;
+	static constexpr double SUN_INTENSITY = 0.5;
+	static constexpr double MAX_LIGHT_THRESHOLD = 300.0;
 };
 #endif
